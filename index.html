@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./img/pokeball.png" type="image/png" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="bgcard.css" />
+    <title>Pokedex</title>
+  </head>
+  <body onload="init()">
+    <header class="header">
+      <div class="container">
+        <h1 class="logo text-center">Poke<span class="dex">Dex</span></h1>
+        <div class="search-bar text-center">
+          <input type="text" id="searchInput" placeholder="Search Pokémon..." />
+        </div>
+      </div>
+    </header>
+
+    <div id="loadingScreen" class="loading-overlay">
+        <div class="loading-content">
+          <img src="./img/pokeball.png" alt="Loading Icon" class="loading-icon" />
+          <div>
+            <span class="loading-text">Loading...</span>
+          </div>
+          <div class="loading-circle"></div>
+        </div>
+      </div>
+
+    <main id="content" class="main-content"></main>
+
+    <div
+      id="fullscreen"
+      class="fullscreen-overlay d-none"
+      onclick="closeFullscreen(event)"
+    ></div>
+
+    <div class="load-more-section">
+      <button onclick="loadMore()" class="load-more-button">Load More</button>
+    </div>
+
+    <script src="templates.js"></script>
+    <script src="char.js"></script>
+    <script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

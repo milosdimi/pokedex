@@ -1,0 +1,143 @@
+.bg-normal {
+  background: linear-gradient(
+    0deg,
+    rgba(168, 168, 120, 1) 0%,
+    rgba(212, 212, 176, 1) 100%
+  );
+}
+
+.bg-fire {
+  background: linear-gradient(
+    0deg,
+    rgba(255, 87, 34, 1) 0%,
+    rgba(255, 160, 0, 1) 100%
+  );
+}
+
+.bg-grass {
+  background: linear-gradient(
+    0deg,
+    rgba(67, 160, 71, 1) 0%,
+    rgba(129, 199, 132, 1) 100%
+  );
+}
+
+.bg-water {
+  background: linear-gradient(
+    0deg,
+    rgba(28, 117, 188, 1) 0%,
+    rgba(91, 192, 235, 1) 100%
+  );
+}
+
+.bg-electric {
+  background: linear-gradient(
+    0deg,
+    rgba(248, 208, 48, 1) 0%,
+    rgba(255, 234, 102, 1) 100%
+  );
+}
+
+.bg-ice {
+  background: linear-gradient(
+    0deg,
+    rgba(80, 226, 230, 1) 0%,
+    rgba(192, 248, 255, 1) 100%
+  );
+}
+
+.bg-fighting {
+  background: linear-gradient(
+    0deg,
+    rgba(194, 46, 40, 1) 0%,
+    rgba(240, 128, 48, 1) 100%
+  );
+}
+
+.bg-poison {
+  background: linear-gradient(
+    0deg,
+    rgba(163, 62, 161, 1) 0%,
+    rgba(185, 97, 219, 1) 100%
+  );
+}
+
+.bg-ground {
+  background: linear-gradient(
+    0deg,
+    rgba(214, 133, 65, 1) 0%,
+    rgba(232, 191, 123, 1) 100%
+  );
+}
+
+.bg-flying {
+  background: linear-gradient(
+    0deg,
+    rgba(169, 143, 243, 1) 0%,
+    rgba(207, 185, 243, 1) 100%
+  );
+}
+
+.bg-psychic {
+  background: linear-gradient(
+    0deg,
+    rgba(249, 85, 135, 1) 0%,
+    rgba(255, 144, 200, 1) 100%
+  );
+}
+
+.bg-bug {
+  background: linear-gradient(
+    0deg,
+    rgba(166, 185, 26, 1) 0%,
+    rgba(202, 218, 97, 1) 100%
+  );
+}
+
+.bg-rock {
+  background: linear-gradient(
+    0deg,
+    rgba(182, 161, 54, 1) 0%,
+    rgba(218, 193, 105, 1) 100%
+  );
+}
+
+.bg-ghost {
+  background: linear-gradient(
+    0deg,
+    rgba(115, 87, 151, 1) 0%,
+    rgba(163, 135, 209, 1) 100%
+  );
+}
+
+.bg-dragon {
+  background: linear-gradient(
+    0deg,
+    rgba(111, 53, 252, 1) 0%,
+    rgba(149, 101, 252, 1) 100%
+  );
+}
+
+.bg-dark {
+  background: linear-gradient(
+    0deg,
+    rgba(112, 87, 70, 1) 0%,
+    rgba(145, 124, 102, 1) 100%
+  );
+}
+
+.bg-steel {
+  background: linear-gradient(
+    0deg,
+    rgba(183, 183, 206, 1) 0%,
+    rgba(214, 214, 234, 1) 100%
+  );
+}
+
+.bg-fairy {
+  background: linear-gradient(
+    0deg,
+    rgba(214, 133, 173, 1) 0%,
+    rgba(255, 200, 233, 1) 100%
+  );
+}
