@@ -59,9 +59,9 @@
 .card-fullscreen {
   position: fixed;
   top: 0;
-  left: 0;
+
   width: 90%;
-  max-width: 600px;
+  max-width: 500px;
   margin: auto;
   background-color: #fff;
   border-radius: 8px;
@@ -91,10 +91,10 @@
   cursor: pointer;
 }
 .previous-button {
-  left: -20px;
+  left: 8px;
 }
 .next-button {
-  right: -20px;
+  right: 8px;
 }
 .close-button {
   position: absolute;
