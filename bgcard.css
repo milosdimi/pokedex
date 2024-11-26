@@ -1,143 +1,217 @@
-.bg-normal {
-  background: linear-gradient(
-    0deg,
-    rgba(168, 168, 120, 1) 0%,
-    rgba(212, 212, 176, 1) 100%
-  );
+.cards {
+  width: 200px;
+  margin: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+.cards[style*="display: none"] {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.cards:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.bg-fire {
-  background: linear-gradient(
-    0deg,
-    rgba(255, 87, 34, 1) 0%,
-    rgba(255, 160, 0, 1) 100%
-  );
+.card-number {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.card-number h5 {
+  font-size: 0.9rem;
+  color: #333;
 }
 
+.imagebox {
+  margin: 10px 0;
+}
+.imagebox img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.card-type {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+.first-type,
+.second-type {
+  background-color: #ddd;
+  color: #333;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+}
+.first-type-fs {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.card-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 90%;
+  max-width: 600px;
+  margin: auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  z-index: 2000;
+  overflow: hidden;
+}
+.card-fullscreen .h2-fs {
+  font-size: 2rem;
+  margin: 10px 0;
+}
+.imagebox-fs img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.previous-button,
+.next-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+}
+.previous-button {
+  left: -20px;
+}
+.next-button {
+  right: -20px;
+}
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.close-icon {
+  width: 20px;
+  height: 20px;
+}
+
+#about {
+  margin-top: 20px;
+}
+.about-hw {
+  display: flex;
+  justify-content: space-between;
+}
+.height-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.separator {
+  display: inline-block;
+  margin: 0 5px;
+  width: 1px;
+  height: 15px;
+  background-color: #ccc;
+}
+
+.stat-label {
+  font-size: 16px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.stat-bar-container {
+  width: 100%;
+  background-color: #f3f3f3;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  position: relative;
+  height: 25px;
+  overflow: hidden;
+}
+
+.stat-bar {
+  height: 100%;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #ff4500, #ffd700);
+  transition: width 0.4s ease-in-out;
+}
+
+.first-type,
+.second-type {
+  color: white;
+}
 .bg-grass {
-  background: linear-gradient(
-    0deg,
-    rgba(67, 160, 71, 1) 0%,
-    rgba(129, 199, 132, 1) 100%
-  );
+  background: linear-gradient(0deg, #78c850, #a8df87);
 }
-
+.bg-fire {
+  background: linear-gradient(0deg, #f08030, #f5a56e);
+}
 .bg-water {
-  background: linear-gradient(
-    0deg,
-    rgba(28, 117, 188, 1) 0%,
-    rgba(91, 192, 235, 1) 100%
-  );
+  background: linear-gradient(0deg, #6890f0, #a3c9f5);
 }
-
-.bg-electric {
-  background: linear-gradient(
-    0deg,
-    rgba(248, 208, 48, 1) 0%,
-    rgba(255, 234, 102, 1) 100%
-  );
-}
-
-.bg-ice {
-  background: linear-gradient(
-    0deg,
-    rgba(80, 226, 230, 1) 0%,
-    rgba(192, 248, 255, 1) 100%
-  );
-}
-
-.bg-fighting {
-  background: linear-gradient(
-    0deg,
-    rgba(194, 46, 40, 1) 0%,
-    rgba(240, 128, 48, 1) 100%
-  );
-}
-
-.bg-poison {
-  background: linear-gradient(
-    0deg,
-    rgba(163, 62, 161, 1) 0%,
-    rgba(185, 97, 219, 1) 100%
-  );
-}
-
-.bg-ground {
-  background: linear-gradient(
-    0deg,
-    rgba(214, 133, 65, 1) 0%,
-    rgba(232, 191, 123, 1) 100%
-  );
-}
-
-.bg-flying {
-  background: linear-gradient(
-    0deg,
-    rgba(169, 143, 243, 1) 0%,
-    rgba(207, 185, 243, 1) 100%
-  );
-}
-
-.bg-psychic {
-  background: linear-gradient(
-    0deg,
-    rgba(249, 85, 135, 1) 0%,
-    rgba(255, 144, 200, 1) 100%
-  );
-}
-
 .bg-bug {
-  background: linear-gradient(
-    0deg,
-    rgba(166, 185, 26, 1) 0%,
-    rgba(202, 218, 97, 1) 100%
-  );
+  background: linear-gradient(0deg, #a8b820, #d4e157);
 }
-
-.bg-rock {
-  background: linear-gradient(
-    0deg,
-    rgba(182, 161, 54, 1) 0%,
-    rgba(218, 193, 105, 1) 100%
-  );
+.bg-normal {
+  background: linear-gradient(0deg, #a8a878, #d1cfc2);
 }
-
-.bg-ghost {
-  background: linear-gradient(
-    0deg,
-    rgba(115, 87, 151, 1) 0%,
-    rgba(163, 135, 209, 1) 100%
-  );
+.bg-poison {
+  background: linear-gradient(0deg, #a040a0, #c17ac8);
 }
-
+.bg-electric {
+  background: linear-gradient(0deg, #f8d030, #fce48e);
+}
+.bg-psychic {
+  background: linear-gradient(0deg, #f85888, #f897b3);
+}
+.bg-ice {
+  background: linear-gradient(0deg, #98d8d8, #cbf5f5);
+}
 .bg-dragon {
-  background: linear-gradient(
-    0deg,
-    rgba(111, 53, 252, 1) 0%,
-    rgba(149, 101, 252, 1) 100%
-  );
+  background: linear-gradient(0deg, #7038f8, #9c89f7);
 }
-
 .bg-dark {
-  background: linear-gradient(
-    0deg,
-    rgba(112, 87, 70, 1) 0%,
-    rgba(145, 124, 102, 1) 100%
-  );
+  background: linear-gradient(0deg, #705848, #a08975);
 }
-
-.bg-steel {
-  background: linear-gradient(
-    0deg,
-    rgba(183, 183, 206, 1) 0%,
-    rgba(214, 214, 234, 1) 100%
-  );
-}
-
 .bg-fairy {
-  background: linear-gradient(
-    0deg,
-    rgba(214, 133, 173, 1) 0%,
-    rgba(255, 200, 233, 1) 100%
-  );
+  background: linear-gradient(0deg, #ee99ac, #f5c4d3);
+}
+.bg-fighting {
+  background: linear-gradient(0deg, #c03028, #e25a5a);
+}
+.bg-ground {
+  background: linear-gradient(0deg, #e0c068, #ebd497);
+}
+.bg-flying {
+  background: linear-gradient(0deg, #a890f0, #c8bdf5);
+}
+.bg-rock {
+  background: linear-gradient(0deg, #b8a038, #dfd29d);
+}
+.bg-ghost {
+  background: linear-gradient(0deg, #705898, #a28dc4);
+}
+.bg-steel {
+  background: linear-gradient(0deg, #b8b8d0, #d9d9e5);
+}
+
+.cards:hover {
+  transform: translateY(-5px);
 }

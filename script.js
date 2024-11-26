@@ -1,5 +1,5 @@
 let data = [];
-let currentPokemon = 10;
+let currentPokemon = 13;
 
 function init() {
   showLoadingScreen();
@@ -24,27 +24,37 @@ async function loadPokemons(start, end) {
 }
 
 function closeLoadingScreen() {
+  console.log("Hiding loading screen...");
   document.getElementById("loadingScreen").classList.add("d-none");
 }
 
 function showLoadingScreen() {
+  console.log("Showing loading screen...");
   document.getElementById("loadingScreen").classList.remove("d-none");
+}
+
+async function loadMore() {
+  showLoadingScreen();
+  const nextPokemon = currentPokemon + 10;
+  await loadPokemons(currentPokemon + 1, nextPokemon + 1);
+  currentPokemon = nextPokemon;
+  closeLoadingScreen();
 }
 
 function renderPokemonCard(p, pokemonData) {
   const { name, sprites, base_experience: xp, types } = pokemonData;
 
-  // Sicherstellen, dass 'types' definiert ist und nicht leer ist
-  if (!types || types.length === 0) {
-    console.error(`No types found for Pokémon ${name}`);
-    return;
+  const validTypes = types?.map((type) => type.type.name).filter(Boolean) || [];
+
+  if (!validTypes.length) {
+    console.error(`No valid types found for Pokémon ${name} (ID ${p})`);
   }
 
-  console.log(`Types for Pokémon ${name} (ID ${p}):`, types);
+  console.log(`Types for Pokémon ${name} (ID ${p}):`, validTypes);
 
   const nameUpperCase = capitalize(name);
   const image = sprites.other.home["front_default"];
-  const classbg = types[0]?.type?.name || "default";
+  const classbg = validTypes[0] || "default";
 
   const content = document.getElementById("content");
   content.innerHTML += generatePokemonCardHtml(
@@ -52,29 +62,45 @@ function renderPokemonCard(p, pokemonData) {
     nameUpperCase,
     image,
     xp,
-    classbg
+    classbg,
+    validTypes
   );
 
-  // Übergebe nur valide Typen an addCardType
   addCardType(p, types);
+}
+
+function addCardTypeFullscreen(p, types) {
+  const typeContent = document.getElementById(`cardTypeFullscreen${p}`);
+
+  if (!types || !Array.isArray(types) || types.length === 0) {
+    console.error(`No valid types found for Pokémon ID ${p}`);
+    typeContent.innerHTML = "<div>No types available</div>";
+    return;
+  }
+
+  const html = generateCardTypesHtml(types, true);
+  typeContent.innerHTML = html;
+}
+
+function nextImg(currentIndex) {
+  const nextIndex = currentIndex < data.length ? currentIndex + 1 : 1;
+  openFullscreen(nextIndex);
+}
+
+function previousImg(currentIndex) {
+  const previousIndex = currentIndex > 1 ? currentIndex - 1 : data.length;
+  openFullscreen(previousIndex);
 }
 
 function addCardType(p, types) {
   const typeContent = document.getElementById(`cardType${p}`);
-
-  // Überprüfen, ob 'types' definiert ist und mindestens einen gültigen Typ enthält
   if (!types || !Array.isArray(types) || types.length === 0) {
     console.error(`No valid types found for Pokémon ID ${p}`);
     return;
   }
 
-  // Filter valid types and map to names
   const validTypes = types.map((type) => type?.type?.name).filter(Boolean);
 
-  // Log the valid types to confirm they are passed correctly
-  console.log("Valid types passed to generateCardTypesHtml:", validTypes);
-
-  // Safety check before passing to generateCardTypesHtml
   if (validTypes.length > 0) {
     console.log("Calling generateCardTypesHtml for Pokémon ID:", p);
     typeContent.innerHTML = generateCardTypesHtml(validTypes);
@@ -87,50 +113,13 @@ function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-function searchPokemon() {
-  const searchField = document
-    .getElementById("searchField")
-    .value.toLowerCase();
-  const pokemonCards = document.querySelectorAll(".cards");
-
-  if (searchField.length >= 3) {
-    showSearchResults(searchField, pokemonCards);
-  } else {
-    resetSearchResults(pokemonCards);
-  }
-}
-
-function showSearchResults(searchField, pokemonCards) {
-  pokemonCards.forEach((card, i) => {
-    const name = document
-      .getElementById(`pokemonName${i + 1}`)
-      .innerText.toLowerCase();
-    card.style.display = name.includes(searchField) ? "flex" : "none";
-  });
-}
-
-function resetSearchResults(pokemonCards) {
-  pokemonCards.forEach((card) => (card.style.display = "flex"));
-}
-
-async function loadMore() {
-  showLoadingScreen();
-  await fetchMorePokemons();
-  closeLoadingScreen();
-}
-
-async function fetchMorePokemons() {
-  const nextPokemon = currentPokemon + 40;
-  await loadPokemons(currentPokemon, nextPokemon);
-  currentPokemon = nextPokemon;
-}
-
 function openFullscreen(p) {
   const pokemon = data[p - 1];
   const object = getFullscreenObject(pokemon);
   const fullScreenContent = document.getElementById("fullscreen");
 
   showFullscreen(fullScreenContent);
+
   fullScreenContent.innerHTML = generateFullscreenHtml(
     p,
     object.nameUpperCase,
@@ -138,11 +127,12 @@ function openFullscreen(p) {
     object.xp,
     object.classbg,
     object.height,
-    object.weight
+    object.weight,
+    object.types
   );
-  addCardTypeFullscreen(p, pokemon);
+
+  addCardTypeFullscreen(p, object.types);
   renderStatsChart(pokemon);
-  updateCloseIconTheme();
 }
 
 function getFullscreenObject(pokemon) {
@@ -155,6 +145,7 @@ function getFullscreenObject(pokemon) {
     classbg: types[0].type.name,
     height: height / 10,
     weight: weight / 10,
+    types: types.map((type) => type.type.name),
   };
 }
 
@@ -174,8 +165,72 @@ function closeFullscreen(event) {
   }
 }
 
-function addCardTypeFullscreen(p, pokemon) {
-  const typeContent = document.getElementById(`cardTypeFullscreen${p}`);
-  const [type0, type1] = pokemon.types.map((type) => type.type.name);
-  typeContent.innerHTML = generateCardTypeFullscreenHtml(type0, type1);
+function renderStatsChart(pokemon) {
+  const stats = getPokemonStats(pokemon);
+  const container = document.getElementById("stats");
+
+  container.innerHTML = "";
+
+  Object.keys(stats).forEach((key) => {
+    const value = stats[key];
+    const statLabel = document.createElement("div");
+    statLabel.className = "stat-label";
+    statLabel.textContent = `${key.toUpperCase()} (${value})`;
+
+    const statBarContainer = document.createElement("div");
+    statBarContainer.className = "stat-bar-container";
+
+    const statBar = document.createElement("div");
+    statBar.className = "stat-bar";
+    statBar.style.width = `${value / 2}%`;
+
+    statBarContainer.appendChild(statBar);
+    container.appendChild(statLabel);
+    container.appendChild(statBarContainer);
+  });
+}
+
+function getPokemonStats(pokemon) {
+  return {
+    hp: pokemon.stats[0].base_stat,
+    attack: pokemon.stats[1].base_stat,
+    defense: pokemon.stats[2].base_stat,
+    spAttack: pokemon.stats[3].base_stat,
+    spDefense: pokemon.stats[4].base_stat,
+    speed: pokemon.stats[5].base_stat,
+  };
+}
+
+function windowResize(chart) {
+  window.onresize = function () {
+    const width = window.innerWidth;
+    let fontSize = 18;
+    if (width < 380) fontSize = 14;
+    else if (width < 600) fontSize = 16;
+
+    Chart.defaults.font.size = fontSize;
+    chart.update();
+  };
+}
+
+function searchPokemon() {
+  const query = document
+    .getElementById("searchInput")
+    .value.toLowerCase()
+    .trim();
+  const pokemonCards = document.querySelectorAll(".cards");
+
+  if (query === "") {
+    pokemonCards.forEach((card) => (card.style.display = "block"));
+    return;
+  }
+
+  pokemonCards.forEach((card) => {
+    const pokemonName = card.querySelector("h2").textContent.toLowerCase();
+    if (pokemonName.includes(query)) {
+      card.style.display = "block";
+    } else {
+      card.style.display = "none";
+    }
+  });
 }
