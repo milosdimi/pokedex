@@ -57,7 +57,7 @@ function generateImageBox(image, fullscreen = false) {
   const imgClass = fullscreen ? "fullscreen-img" : "";
   return `
     <div class="imagebox ${fullscreen ? "imagebox-fs" : ""}">
-      <img class="${imgClass}" src="${image}" alt="">
+      <img class="${imgClass}" src="${image}" alt="Pokemon Image">
     </div>
   `;
 }
@@ -65,13 +65,13 @@ function generateImageBox(image, fullscreen = false) {
 function generateNavigationButtons(p) {
   return `
     <button onclick="previousImg(${p})" class="previous-button">
-      <img src="./img/left.png" alt="">
+      <img src="./img/left.png" alt="Previous">
     </button>
     <button onclick="nextImg(${p})" class="next-button">
-      <img src="./img/arrow-right.png" alt="">
+      <img src="./img/arrow-right.png" alt="Next">
     </button>
     <button onclick="closeFullscreen(event)" class="close-button">
-      <img class="close-icon" src="./img/circle-xmark.png" alt="">
+      <img class="close-icon" src="./img/circle-xmark.png" alt="Close">
     </button>
   `;
 }
@@ -93,38 +93,15 @@ function generateAboutSection(height, weight) {
   `;
 }
 
-function generateCardTypeFullscreenHtml(type0, type1) {
-  return `
-    <div class="first-type-fs">
-      <h4>${type0}</h4>
-    </div>
-    ${
-      type1
-        ? `
-    <div class="second-type-fs">
-      <h4>${type1}</h4>
-    </div>
-    `
-        : ""
-    }
-  `;
-}
-
 function generateCardTypesHtml(types = [], fullscreen = false) {
-  console.log("Types passed to generateCardTypesHtml (before check):", types);
+  console.log("Types passed to generateCardTypesHtml:", types);
 
-  const validTypes = Array.isArray(types)
-    ? types.filter((type) => type && typeof type === "string")
-    : [];
-
-  if (validTypes.length === 0) {
-    console.error("Expected 'types' to be a non-empty array, but got:", types);
+  if (!Array.isArray(types) || types.length === 0) {
+    console.error("Invalid or empty 'types' array:", types);
     return "<div class='no-types'>No types available</div>";
   }
 
-  console.log("Valid types for generateCardTypesHtml:", validTypes);
-
-  return validTypes
+  return types
     .map(
       (type, index) => `
         <div class="${index === 0 ? "first-type" : "second-type"} ${

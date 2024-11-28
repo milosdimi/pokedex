@@ -12,32 +12,51 @@ async function getPokemons() {
 
 async function loadPokemons(start, end) {
   const promises = [];
-  for (let p = start; p < end; p++) {
+  for (let p = start; p <= end; p++) {
     let url = `https://pokeapi.co/api/v2/pokemon/${p}`;
-    promises.push(fetch(url).then((response) => response.json()));
+    promises.push(
+      fetch(url)
+        .then((response) => {
+          if (!response.ok) throw new Error(`Failed to fetch Pokémon ID ${p}`);
+          return response.json();
+        })
+        .catch((error) => {
+          console.error(error.message);
+          return null; // Add `null` for failed Pokémon
+        })
+    );
   }
+
   const results = await Promise.all(promises);
+
   results.forEach((pokemonData, index) => {
-    data.push(pokemonData);
-    renderPokemonCard(index + start, pokemonData);
+    if (pokemonData) {
+      const pokemonId = start + index; // Calculate correct ID
+      data[pokemonId] = pokemonData; // Use ID as index for direct access
+      renderPokemonCard(pokemonId, pokemonData);
+    } else {
+      console.warn(`No data found for Pokémon ID ${start + index}`);
+    }
   });
 }
 
 function closeLoadingScreen() {
-  console.log("Hiding loading screen...");
   document.getElementById("loadingScreen").classList.add("d-none");
 }
 
 function showLoadingScreen() {
-  console.log("Showing loading screen...");
   document.getElementById("loadingScreen").classList.remove("d-none");
 }
 
 async function loadMore() {
   showLoadingScreen();
+
+  const startPokemon = currentPokemon + 1;
   const nextPokemon = currentPokemon + 10;
-  await loadPokemons(currentPokemon + 1, nextPokemon + 1);
+
+  await loadPokemons(startPokemon, nextPokemon);
   currentPokemon = nextPokemon;
+
   closeLoadingScreen();
 }
 
@@ -45,13 +64,6 @@ function renderPokemonCard(p, pokemonData) {
   const { name, sprites, base_experience: xp, types } = pokemonData;
 
   const validTypes = types?.map((type) => type.type.name).filter(Boolean) || [];
-
-  if (!validTypes.length) {
-    console.error(`No valid types found for Pokémon ${name} (ID ${p})`);
-  }
-
-  console.log(`Types for Pokémon ${name} (ID ${p}):`, validTypes);
-
   const nameUpperCase = capitalize(name);
   const image = sprites.other.home["front_default"];
   const classbg = validTypes[0] || "default";
@@ -66,7 +78,20 @@ function renderPokemonCard(p, pokemonData) {
     validTypes
   );
 
-  addCardType(p, types);
+  // Add Pokémon types to the card
+  addCardType(p, validTypes);
+}
+
+function addCardType(p, types) {
+  const typeContent = document.getElementById(`cardType${p}`);
+
+  if (!types || !Array.isArray(types) || types.length === 0) {
+    console.error(`No valid types found for Pokémon ID ${p}`);
+    return;
+  }
+
+  const html = generateCardTypesHtml(types);
+  typeContent.innerHTML = html;
 }
 
 function addCardTypeFullscreen(p, types) {
@@ -82,39 +107,14 @@ function addCardTypeFullscreen(p, types) {
   typeContent.innerHTML = html;
 }
 
-function nextImg(currentIndex) {
-  const nextIndex = currentIndex < data.length ? currentIndex + 1 : 1;
-  openFullscreen(nextIndex);
-}
+function openFullscreen(p) {
+  const pokemon = data[p];
 
-function previousImg(currentIndex) {
-  const previousIndex = currentIndex > 1 ? currentIndex - 1 : data.length;
-  openFullscreen(previousIndex);
-}
-
-function addCardType(p, types) {
-  const typeContent = document.getElementById(`cardType${p}`);
-  if (!types || !Array.isArray(types) || types.length === 0) {
-    console.error(`No valid types found for Pokémon ID ${p}`);
+  if (!pokemon) {
+    console.error(`No Pokémon found for ID ${p}`);
     return;
   }
 
-  const validTypes = types.map((type) => type?.type?.name).filter(Boolean);
-
-  if (validTypes.length > 0) {
-    console.log("Calling generateCardTypesHtml for Pokémon ID:", p);
-    typeContent.innerHTML = generateCardTypesHtml(validTypes);
-  } else {
-    console.error(`No valid types for Pokémon ID ${p}`);
-  }
-}
-
-function capitalize(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-function openFullscreen(p) {
-  const pokemon = data[p - 1];
   const object = getFullscreenObject(pokemon);
   const fullScreenContent = document.getElementById("fullscreen");
 
@@ -135,6 +135,16 @@ function openFullscreen(p) {
   renderStatsChart(pokemon);
 }
 
+function nextImg(currentIndex) {
+  const nextIndex = currentIndex < currentPokemon ? currentIndex + 1 : 1;
+  openFullscreen(nextIndex);
+}
+
+function previousImg(currentIndex) {
+  const previousIndex = currentIndex > 1 ? currentIndex - 1 : currentPokemon;
+  openFullscreen(previousIndex);
+}
+
 function getFullscreenObject(pokemon) {
   const { name, sprites, base_experience: xp, types, height, weight } = pokemon;
   return {
@@ -142,7 +152,7 @@ function getFullscreenObject(pokemon) {
     nameUpperCase: capitalize(name),
     image: sprites.other.home["front_default"],
     xp,
-    classbg: types[0].type.name,
+    classbg: types[0]?.type?.name || "default",
     height: height / 10,
     weight: weight / 10,
     types: types.map((type) => type.type.name),
@@ -201,23 +211,8 @@ function getPokemonStats(pokemon) {
   };
 }
 
-function windowResize(chart) {
-  window.onresize = function () {
-    const width = window.innerWidth;
-    let fontSize = 18;
-    if (width < 380) fontSize = 14;
-    else if (width < 600) fontSize = 16;
-
-    Chart.defaults.font.size = fontSize;
-    chart.update();
-  };
-}
-
 function searchPokemon() {
-  const query = document
-    .getElementById("searchInput")
-    .value.toLowerCase()
-    .trim();
+  const query = document.getElementById("searchInput").value.toLowerCase().trim();
   const pokemonCards = document.querySelectorAll(".cards");
 
   if (query === "") {
@@ -227,10 +222,10 @@ function searchPokemon() {
 
   pokemonCards.forEach((card) => {
     const pokemonName = card.querySelector("h2").textContent.toLowerCase();
-    if (pokemonName.includes(query)) {
-      card.style.display = "block";
-    } else {
-      card.style.display = "none";
-    }
+    card.style.display = pokemonName.includes(query) ? "block" : "none";
   });
+}
+
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
