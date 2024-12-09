@@ -1,0 +1,141 @@
+/* Fullscreen Pokémon Card Styles */
+
+/* General container for the card */
+.card-fullscreen {
+  width: 95%;
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 25px;
+ 
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Header containing ID and XP */
+.card-number {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #444;
+}
+
+.card-number h5 {
+  margin: 0;
+  padding: 5px 10px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+}
+
+/* Pokémon Name */
+.h2-fs {
+  font-size: 2rem;
+  text-align: center;
+  font-weight: bold;
+  margin: 20px 0;
+  color: #292929;
+}
+
+/* Type badges */
+.card-type {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.first-type,
+.second-type {
+  padding: 8px 15px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  font-size: 1rem;
+  font-weight: bold;
+  color: #292929;
+}
+
+/* Pokémon Image */
+.imagebox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.fullscreen-img {
+  width: 80%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Navigation Buttons */
+.previous-button,
+.next-button {
+  position: absolute;
+  top: 33%;
+  transform: translateY(-50%);
+
+  border: none;
+  border-radius: 50%;
+  padding: 12px;
+  cursor: pointer;
+}
+
+/* About Section */
+#about {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.about-hw {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  color: #444;
+}
+
+.height-container span {
+  display: block;
+  text-align: center;
+}
+
+/* Stats Container */
+.stats-container {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.stat-label {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #292929;
+}
+
+.stat-bar-container {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  height: 20px;
+}
+
+.stat-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #00b4d8, #90e0ef);
+  border-radius: 10px;
+  transition: width 0.4s ease;
+}

@@ -79,17 +79,6 @@
   border-radius: 8px;
 }
 
-.previous-button,
-.next-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(255, 255, 255, 0.8);
-  border: none;
-  border-radius: 50%;
-  padding: 10px;
-  cursor: pointer;
-}
 .previous-button {
   left: 8px;
 }
@@ -98,7 +87,7 @@
 }
 .close-button {
   position: absolute;
-  top: 10px;
+  top: 100px;
   right: 10px;
   background-color: transparent;
   border: none;
@@ -109,9 +98,7 @@
   height: 20px;
 }
 
-#about {
-  margin-top: 20px;
-}
+
 .about-hw {
   display: flex;
   justify-content: space-between;
