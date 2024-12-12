@@ -17,46 +17,12 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.card-number h5 {
-  font-size: 0.9rem;
-  color: #333;
-}
-
 .imagebox img {
   width: 100%;
   height: auto;
   border-radius: 5px;
 }
 
-.first-type-fs {
-  font-size: 1rem;
-  font-weight: bold;
-}
-
-.imagebox-fs img {
-  width: 100%;
-  border-radius: 8px;
-}
-
-.previous-button {
-  left: 8px;
-}
-.next-button {
-  right: 8px;
-}
-.close-button {
-  position: absolute;
-  top: 100px;
-  right: 10px;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-.about-hw {
-  display: flex;
-  justify-content: space-between;
-}
 .height-container {
   display: flex;
   align-items: center;
