@@ -1,17 +1,16 @@
 /* Fullscreen Pokémon Card Styles */
-
-/* General container for the card */
 .card-fullscreen {
   width: 95%;
-  max-width: 500px;
+  max-width: 400px;
   margin: 20px auto;
   padding: 25px;
   z-index: 2000;
   border-radius: 20px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
+  overflow-y: auto; 
   position: relative;
   top: 0;
+  background-color: #fff; 
 }
 
 .fullscreen-overlay {
@@ -19,21 +18,27 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  height: 100vh; 
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.9
+  ); 
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 2000;
+  overflow-y: auto; 
 }
-/* Header containing ID and XP */
+
 .card-number {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 1.2rem;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   color: #444;
 }
 
@@ -44,78 +49,85 @@
   border-radius: 12px;
 }
 
-/* Pokémon Name */
 .h2-fs {
-  font-size: 2rem;
+  font-size: 1.8rem;
   text-align: center;
   font-weight: bold;
-  margin: 20px 0;
+  margin: 15px 0;
   color: #292929;
 }
 
-/* Type badges */
 .card-type {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 8px;
+  margin-bottom: 15px;
 }
 
 .first-type,
 .second-type {
   padding: 8px 15px;
   border-radius: 50px;
+  background: #d62828;
+  color: white;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  font-size: 0.9rem;
 }
 
-/* Pokémon Image */
 .imagebox {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px 0;
+  margin: 15px 0;
 }
 
 .fullscreen-img {
   width: 80%;
-  max-width: 300px;
+  max-width: 250px;
   height: auto;
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Navigation Buttons */
 .previous-button,
 .next-button {
   position: absolute;
   top: 33%;
+  transform: translateY(-50%);
   background-color: transparent;
-
   border: none;
   border-radius: 50%;
-  padding: 12px;
+  padding: 10px;
   cursor: pointer;
+  z-index: 2010;
 }
+
+.previous-button {
+  left: 10px;
+}
+
+.next-button {
+  right: 10px;
+}
+
 .close-button {
   position: absolute;
   top: 100px;
-  right: 10px;
+  right: 20px;
   background-color: transparent;
   border: none;
   cursor: pointer;
 }
-.previous-button {
-  left: 8px;
-}
-.next-button {
-  right: 8px;
+
+.close-icon {
+  width: 30px;
+  height: 30px;
 }
 
-/* About Section */
 #about {
   margin-top: 20px;
   padding: 15px;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.05);
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
@@ -124,9 +136,20 @@
   display: flex;
   justify-content: space-between;
   font-size: 1rem;
+  color: #333;
 }
 
-/* Stats Container */
+.height-container span {
+  display: inline-block;
+  font-size: 1rem;
+}
+
+.separator {
+  width: 10px;
+  display: inline-block;
+  text-align: center;
+}
+
 .stats-container {
   margin: 20px auto;
   padding: 15px;
@@ -136,7 +159,7 @@
 }
 
 .stat-label {
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: bold;
   margin-bottom: 5px;
   color: #292929;
@@ -147,7 +170,7 @@
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 10px;
-  height: 20px;
+  height: 18px;
 }
 
 .stat-bar {
@@ -155,4 +178,92 @@
   background: linear-gradient(90deg, #00b4d8, #90e0ef);
   border-radius: 10px;
   transition: width 0.4s ease;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 768px) {
+  .card-fullscreen {
+    width: 95%;
+    height: 60vh; 
+    max-width: 360px;
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  .fullscreen-img {
+    width: 70%;
+    max-width: 180px;
+  }
+
+  .h2-fs {
+    font-size: 1.5rem;
+    margin: 10px 0;
+  }
+
+  .card-type .first-type,
+  .card-type .second-type {
+    font-size: 0.75rem;
+    padding: 5px 10px;
+  }
+
+  .stat-bar-container {
+    height: 15px;
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+  }
+
+  .close-button {
+    top: 100px;
+    right: 15px;
+  }
+
+  .next-button,
+  .previous-button {
+    top: 33%;
+  }
+
+  .fullscreen-overlay {
+    overflow-y: auto; 
+  }
+}
+
+@media (max-width: 480px) {
+  .card-fullscreen {
+    width: 100%;
+    height: 90%;
+    padding: 15px;
+  }
+
+  .fullscreen-img {
+    width: 65%;
+    max-width: 150px;
+  }
+
+  .h2-fs {
+    font-size: 1.2rem;
+  }
+
+  .previous-button,
+  .next-button {
+    top: 35%;
+  }
+
+  .close-icon {
+    width: 25px;
+    height: 25px;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+  }
+
+  .stat-bar-container {
+    height: 12px;
+  }
+
+  .stat-bar {
+    height: 100%;
+  }
 }
