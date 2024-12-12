@@ -61,11 +61,12 @@ body {
 .loading-content {
   text-align: center;
   color: #fff;
+  display: grid;
 }
 
 .loading-icon {
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
   animation: spin 1.5s linear infinite;
 }
 
