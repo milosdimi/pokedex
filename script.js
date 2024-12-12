@@ -22,7 +22,7 @@ async function loadPokemons(start, end) {
         })
         .catch((error) => {
           console.error(error.message);
-          return null; // Add `null` for failed Pokémon
+          return null;
         })
     );
   }
@@ -31,8 +31,8 @@ async function loadPokemons(start, end) {
 
   results.forEach((pokemonData, index) => {
     if (pokemonData) {
-      const pokemonId = start + index; // Calculate correct ID
-      data[pokemonId] = pokemonData; // Use ID as index for direct access
+      const pokemonId = start + index;
+      data[pokemonId] = pokemonData;
       renderPokemonCard(pokemonId, pokemonData);
     } else {
       console.warn(`No data found for Pokémon ID ${start + index}`);
@@ -78,7 +78,6 @@ function renderPokemonCard(p, pokemonData) {
     validTypes
   );
 
-  // Add Pokémon types to the card
   addCardType(p, validTypes);
 }
 
@@ -212,7 +211,10 @@ function getPokemonStats(pokemon) {
 }
 
 function searchPokemon() {
-  const query = document.getElementById("searchInput").value.toLowerCase().trim();
+  const query = document
+    .getElementById("searchInput")
+    .value.toLowerCase()
+    .trim();
   const pokemonCards = document.querySelectorAll(".cards");
 
   if (query === "") {
