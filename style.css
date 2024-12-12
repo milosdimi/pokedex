@@ -119,16 +119,6 @@ body {
 .load-more-button:hover {
   background-color: #b71c1c;
 }
-.stats-container {
-  margin: 20px auto;
-  width: 90%;
-  height: 300px;
-  display: flex;
-  flex-direction: column;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
 
 #statsChart {
   max-width: 100%;

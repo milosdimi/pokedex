@@ -17,63 +17,22 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.card-number {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
 .card-number h5 {
   font-size: 0.9rem;
   color: #333;
 }
 
-.imagebox {
-  margin: 10px 0;
-}
 .imagebox img {
   width: 100%;
   height: auto;
   border-radius: 5px;
 }
 
-.card-type {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 10px;
-}
-.first-type,
-.second-type {
-  background-color: #ddd;
-  color: #333;
-  padding: 5px 10px;
-  border-radius: 15px;
-  font-size: 0.8rem;
-}
 .first-type-fs {
   font-size: 1rem;
   font-weight: bold;
 }
 
-.card-fullscreen {
-  position: fixed;
-  top: 0;
-
-  width: 90%;
-  max-width: 500px;
-  margin: auto;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  padding: 20px;
-  z-index: 2000;
-  overflow: hidden;
-}
-.card-fullscreen .h2-fs {
-  font-size: 2rem;
-  margin: 10px 0;
-}
 .imagebox-fs img {
   width: 100%;
   border-radius: 8px;
@@ -93,11 +52,6 @@
   border: none;
   cursor: pointer;
 }
-.close-icon {
-  width: 20px;
-  height: 20px;
-}
-
 
 .about-hw {
   display: flex;
@@ -105,15 +59,19 @@
 }
 .height-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
 }
 .separator {
   display: inline-block;
-  margin: 0 5px;
-  width: 1px;
-  height: 15px;
-  background-color: #ccc;
+  font-size: 18px;
+  color: #333;
+  margin: 0 10px;
+}
+
+.separator::before {
+  content: "\f061"; /* Font Awesome Arrow Icon */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
 }
 
 .stat-label {
@@ -140,10 +98,6 @@
   transition: width 0.4s ease-in-out;
 }
 
-.first-type,
-.second-type {
-  color: white;
-}
 .bg-grass {
   background: linear-gradient(0deg, #78c850, #a8df87);
 }
