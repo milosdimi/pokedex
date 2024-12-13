@@ -93,11 +93,22 @@ function generateAboutSection(height, weight) {
   `;
 }
 
-function generateCardTypesHtml(types = [], fullscreen = false) {
-  console.log("Types passed to generateCardTypesHtml:", types);
+function generateStatsHtml(stats) {
+  return Object.keys(stats)
+    .map((key) => {
+      const value = stats[key];
+      return `
+        <div class="stat-label">${key.toUpperCase()} (${value})</div>
+        <div class="stat-bar-container">
+          <div class="stat-bar" style="width: ${value / 2}%;"></div>
+        </div>
+      `;
+    })
+    .join("");
+}
 
+function generateCardTypesHtml(types = [], fullscreen = false) {
   if (!Array.isArray(types) || types.length === 0) {
-    console.error("Invalid or empty 'types' array:", types);
     return "<div class='no-types'>No types available</div>";
   }
 

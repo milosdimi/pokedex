@@ -21,7 +21,6 @@ async function loadPokemons(start, end) {
           return response.json();
         })
         .catch((error) => {
-          console.error(error.message);
           return null;
         })
     );
@@ -34,8 +33,6 @@ async function loadPokemons(start, end) {
       const pokemonId = start + index;
       data[pokemonId] = pokemonData;
       renderPokemonCard(pokemonId, pokemonData);
-    } else {
-      console.warn(`No data found for Pokémon ID ${start + index}`);
     }
   });
 }
@@ -85,7 +82,6 @@ function addCardType(p, types) {
   const typeContent = document.getElementById(`cardType${p}`);
 
   if (!types || !Array.isArray(types) || types.length === 0) {
-    console.error(`No valid types found for Pokémon ID ${p}`);
     return;
   }
 
@@ -97,7 +93,6 @@ function addCardTypeFullscreen(p, types) {
   const typeContent = document.getElementById(`cardTypeFullscreen${p}`);
 
   if (!types || !Array.isArray(types) || types.length === 0) {
-    console.error(`No valid types found for Pokémon ID ${p}`);
     typeContent.innerHTML = "<div>No types available</div>";
     return;
   }
@@ -110,7 +105,6 @@ function openFullscreen(p) {
   const pokemon = data[p];
 
   if (!pokemon) {
-    console.error(`No Pokémon found for ID ${p}`);
     return;
   }
 
@@ -177,26 +171,7 @@ function closeFullscreen(event) {
 function renderStatsChart(pokemon) {
   const stats = getPokemonStats(pokemon);
   const container = document.getElementById("stats");
-
-  container.innerHTML = "";
-
-  Object.keys(stats).forEach((key) => {
-    const value = stats[key];
-    const statLabel = document.createElement("div");
-    statLabel.className = "stat-label";
-    statLabel.textContent = `${key.toUpperCase()} (${value})`;
-
-    const statBarContainer = document.createElement("div");
-    statBarContainer.className = "stat-bar-container";
-
-    const statBar = document.createElement("div");
-    statBar.className = "stat-bar";
-    statBar.style.width = `${value / 2}%`;
-
-    statBarContainer.appendChild(statBar);
-    container.appendChild(statLabel);
-    container.appendChild(statBarContainer);
-  });
+  container.innerHTML = generateStatsHtml(stats);
 }
 
 function getPokemonStats(pokemon) {
