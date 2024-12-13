@@ -1,4 +1,11 @@
-function generatePokemonCardHtml(singlePokemon, nameUpperCase, image, xp, classbg, types) {
+function generatePokemonCardHtml(
+  singlePokemon,
+  nameUpperCase,
+  image,
+  xp,
+  classbg,
+  types
+) {
   return `
     <div id="pokemon${singlePokemon}" class="cards bg-${classbg}" onclick="openFullscreen(${singlePokemon})">
       ${generateCardHeader(singlePokemon, xp)}
@@ -124,3 +131,72 @@ function generateCardTypesHtml(types = [], fullscreen = false) {
     )
     .join("");
 }
+
+const generateFooter = () => {
+  const footerContent = `
+    <footer class="footer bg-dark text-white py-4">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-4 text-center text-md-start">
+            <img src="./img/pokeball.png" alt="Logo" class="footer-logo mb-3">
+            <p>&copy; 2024 dimit. All rights reserved.</p>
+            <p>Email: <a href="mailto:dm@dimit.cc" class="text-white">dm@dimit.cc</a></p>
+            <p>Phone: <a href="tel:+436642178313" class="text-white">+436642178313</a></p>
+          </div>
+          <div class="col-md-4 text-center">
+            <h5>Follow Us</h5>
+            <a href="https://www.facebook.com/profile.php?id=61557717354333" target="_blank" class="mx-3 text-white">
+              <i class="bi bi-facebook"></i>
+            </a>
+            <a href="https://www.instagram.com/dimit.it/" target="_blank" class="mx-3 text-white">
+              <i class="bi bi-instagram"></i>
+            </a>
+          </div>
+          <div class="col-md-4 text-center text-md-end">
+            <h5>Useful Links</h5>
+            <ul class="list-unstyled">
+              <li><a href="/impressum.html" class="text-white">Impressum</a></li>
+              <li><a href="/datenschutzerklaerung.html" class="text-white">Datenschutz</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  `;
+
+  document.body.insertAdjacentHTML("beforeend", footerContent);
+};
+
+window.addEventListener("DOMContentLoaded", generateFooter);
+
+const generateCookieBanner = () => {
+  const userChoice = localStorage.getItem("cookieConsent");
+  if (userChoice) return;
+  const bannerHTML = `
+    <div class="cookie-banner">
+      <p>Wir verwenden Cookies, um unsere Website zu verbessern. Sie können wählen, welche Cookies Sie akzeptieren.</p>
+      <div class="cookie-buttons">
+        <button id="accept-cookies" class="cookie-button accept">Akzeptieren</button>
+        <button id="decline-cookies" class="cookie-button decline">Ablehnen</button>
+      </div>
+    </div>
+  `;
+
+  document.body.insertAdjacentHTML("afterbegin", bannerHTML);
+  document.getElementById("accept-cookies").addEventListener("click", () => {
+    localStorage.setItem("cookieConsent", "accepted");
+    removeCookieBanner();
+  });
+
+  document.getElementById("decline-cookies").addEventListener("click", () => {
+    localStorage.setItem("cookieConsent", "declined");
+    removeCookieBanner();
+  });
+
+  const removeCookieBanner = () => {
+    const banner = document.querySelector(".cookie-banner");
+    if (banner) banner.remove();
+  };
+};
+
+window.addEventListener("DOMContentLoaded", generateCookieBanner);

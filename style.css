@@ -115,6 +115,160 @@ body {
 .d-none {
   display: none;
 }
+
+
+.footer {
+  color: #ffffff;
+  padding: 40px 0;
+  text-align: center;
+}
+
+.footer a {
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: #ffc107;
+}
+
+.footer-logo {
+  height: auto;
+  max-width: 70px;
+}
+
+.footer i.bi {
+  font-size: 32px;
+}
+
+.footer a i {
+  font-size: 32px;
+}
+
+.footer p {
+  margin-bottom: 5px;
+}
+
+.footer h5 {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.footer ul {
+  padding-left: 0;
+}
+
+.footer ul li {
+  list-style: none;
+}
+
+.footer .text-white {
+  color: #ffffff !important;
+}
+
+.footer .bg-dark {
+  background-color: #212529 !important;
+}
+
+.footer .container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.footer .row {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.footer .col-md-4 {
+  flex: 1;
+  min-width: 250px;
+  text-align: center;
+}
+
+.footer .col-md-4.text-md-start {
+  text-align: left;
+}
+
+.footer .col-md-4.text-md-end {
+  text-align: right;
+}
+
+.footer .col-md-4.text-center a {
+  margin-right: 20px; 
+}
+
+.footer .col-md-4.text-center a:last-child {
+  margin-right: 0; 
+}
+
+.footer .list-unstyled li {
+  margin-bottom: 10px;
+}
+
+.footer .list-unstyled a {
+  display: inline-block;
+  padding: 5px 0; 
+}
+
+
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #212529;
+  color: #ffffff;
+  text-align: center;
+  padding: 20px 10px;
+  font-size: 1rem;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cookie-banner p {
+  margin-bottom: 10px;
+}
+
+.cookie-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.cookie-button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cookie-button.accept {
+  background-color: #28a745;
+}
+
+.cookie-button.decline {
+  background-color: #dc3545;
+}
+
+.cookie-button:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .footer .col-md-4 {
+    flex-basis: 100%;
+    text-align: center !important;
+    margin-bottom: 20px;
+  }
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
