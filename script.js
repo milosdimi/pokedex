@@ -12,12 +12,12 @@ async function getPokemons() {
 
 async function loadPokemons(start, end) {
   const promises = [];
-  for (let p = start; p <= end; p++) {
-    let url = `https://pokeapi.co/api/v2/pokemon/${p}`;
+  for (let singlePokemon = start; singlePokemon <= end; singlePokemon++) {
+    let url = `https://pokeapi.co/api/v2/pokemon/${singlePokemon}`;
     promises.push(
       fetch(url)
         .then((response) => {
-          if (!response.ok) throw new Error(`Failed to fetch Pokémon ID ${p}`);
+          if (!response.ok) throw new Error(`Failed to fetch Pokémon ID ${singlePokemon}`);
           return response.json();
         })
         .catch((error) => {
@@ -57,7 +57,7 @@ async function loadMore() {
   closeLoadingScreen();
 }
 
-function renderPokemonCard(p, pokemonData) {
+function renderPokemonCard(singlePokemon, pokemonData) {
   const { name, sprites, base_experience: xp, types } = pokemonData;
 
   const validTypes = types?.map((type) => type.type.name).filter(Boolean) || [];
@@ -67,7 +67,7 @@ function renderPokemonCard(p, pokemonData) {
 
   const content = document.getElementById("content");
   content.innerHTML += generatePokemonCardHtml(
-    p,
+    singlePokemon,
     nameUpperCase,
     image,
     xp,
@@ -75,11 +75,11 @@ function renderPokemonCard(p, pokemonData) {
     validTypes
   );
 
-  addCardType(p, validTypes);
+  addCardType(singlePokemon, validTypes);
 }
 
-function addCardType(p, types) {
-  const typeContent = document.getElementById(`cardType${p}`);
+function addCardType(singlePokemon, types) {
+  const typeContent = document.getElementById(`cardType${singlePokemon}`);
 
   if (!types || !Array.isArray(types) || types.length === 0) {
     return;
@@ -89,8 +89,8 @@ function addCardType(p, types) {
   typeContent.innerHTML = html;
 }
 
-function addCardTypeFullscreen(p, types) {
-  const typeContent = document.getElementById(`cardTypeFullscreen${p}`);
+function addCardTypeFullscreen(singlePokemon, types) {
+  const typeContent = document.getElementById(`cardTypeFullscreen${singlePokemon}`);
 
   if (!types || !Array.isArray(types) || types.length === 0) {
     typeContent.innerHTML = "<div>No types available</div>";
@@ -101,8 +101,8 @@ function addCardTypeFullscreen(p, types) {
   typeContent.innerHTML = html;
 }
 
-function openFullscreen(p) {
-  const pokemon = data[p];
+function openFullscreen(singlePokemon) {
+  const pokemon = data[singlePokemon];
 
   if (!pokemon) {
     return;
@@ -114,7 +114,7 @@ function openFullscreen(p) {
   showFullscreen(fullScreenContent);
 
   fullScreenContent.innerHTML = generateFullscreenHtml(
-    p,
+    singlePokemon,
     object.nameUpperCase,
     object.image,
     object.xp,
@@ -124,7 +124,7 @@ function openFullscreen(p) {
     object.types
   );
 
-  addCardTypeFullscreen(p, object.types);
+  addCardTypeFullscreen(singlePokemon, object.types);
   renderStatsChart(pokemon);
 }
 

@@ -1,10 +1,10 @@
-function generatePokemonCardHtml(p, nameUpperCase, image, xp, classbg, types) {
+function generatePokemonCardHtml(singlePokemon, nameUpperCase, image, xp, classbg, types) {
   return `
-    <div id="pokemon${p}" class="cards bg-${classbg}" onclick="openFullscreen(${p})">
-      ${generateCardHeader(p, xp)}
-      <h2 id="pokemonName${p}">${nameUpperCase}</h2>
+    <div id="pokemon${singlePokemon}" class="cards bg-${classbg}" onclick="openFullscreen(${singlePokemon})">
+      ${generateCardHeader(singlePokemon, xp)}
+      <h2 id="pokemonName${singlePokemon}">${nameUpperCase}</h2>
       ${generateImageBox(image)}
-      <div id="cardType${p}" class="card-type">
+      <div id="cardType${singlePokemon}" class="card-type">
         ${generateCardTypesHtml(types)}
       </div>
     </div>
@@ -12,7 +12,7 @@ function generatePokemonCardHtml(p, nameUpperCase, image, xp, classbg, types) {
 }
 
 function generateFullscreenHtml(
-  p,
+  singlePokemon,
   nameUpperCase,
   image,
   xp,
@@ -23,13 +23,13 @@ function generateFullscreenHtml(
 ) {
   return `
     <div class="card-fullscreen bg-${classbg}">
-      ${generateCardHeader(p, xp, true)}
+      ${generateCardHeader(singlePokemon, xp, true)}
       <h2 class="h2-fs">${nameUpperCase}</h2>
-      <div id="cardTypeFullscreen${p}" class="card-type card-type-fs">
+      <div id="cardTypeFullscreen${singlePokemon}" class="card-type card-type-fs">
         ${generateCardTypesHtml(types, true)}
       </div>
       ${generateImageBox(image, true)}
-      ${generateNavigationButtons(p)}
+      ${generateNavigationButtons(singlePokemon)}
       ${generateAboutSection(height, weight)}
       <div id="stats" class="stats-container">
         <canvas id="statsChart" width="400" height="200"></canvas>
@@ -38,13 +38,13 @@ function generateFullscreenHtml(
   `;
 }
 
-function generateCardHeader(p, xp, fullscreen = false) {
+function generateCardHeader(singlePokemon, xp, fullscreen = false) {
   const headerClass = fullscreen ? "card-number card-number-fs" : "card-number";
   const h5Class = fullscreen ? "h5-fs" : "";
   return `
     <div class="${headerClass}">
       <div class="pokemon-id">
-        <h5 class="${h5Class}">${p}</h5>
+        <h5 class="${h5Class}">${singlePokemon}</h5>
       </div>
       <div class="margin-left-auto">
         <h5 class="${h5Class}">XP ${xp}</h5>
@@ -62,12 +62,12 @@ function generateImageBox(image, fullscreen = false) {
   `;
 }
 
-function generateNavigationButtons(p) {
+function generateNavigationButtons(singlePokemon) {
   return `
-    <button onclick="previousImg(${p})" class="previous-button">
+    <button onclick="previousImg(${singlePokemon})" class="previous-button">
       <img src="./img/left.png" alt="Previous">
     </button>
-    <button onclick="nextImg(${p})" class="next-button">
+    <button onclick="nextImg(${singlePokemon})" class="next-button">
       <img src="./img/arrow-right.png" alt="Next">
     </button>
     <button onclick="closeFullscreen(event)" class="close-button">
